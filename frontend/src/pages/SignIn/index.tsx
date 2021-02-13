@@ -4,6 +4,9 @@ import logoImg from '../../assets/logo.svg';
 import fullLogoImg from '../../assets/full-logo.svg';
 import letteringImg from '../../assets/lettering.svg';
 
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+
 import { Container, Content, Logo } from './styles';
 
 const SignIn: React.FC = () => (
@@ -15,11 +18,13 @@ const SignIn: React.FC = () => (
       </Logo>
 
       <form>
-        <input placeholder="E-mail" />
-        <input type="password" placeholder="Senha" />
-        <a href="forgot">Esqueci minha senha</a>
+        <Input name="email" placeholder="E-mail" />
+        <Input name="password" type="password" placeholder="Senha" />
+        <a className="forgotPassword" href="forgot">
+          Esqueci minha senha
+        </a>
 
-        <button type="submit">Entrar</button>
+        <Button type="submit">Entrar</Button>
 
         <a href="signup">Criar uma conta</a>
       </form>

@@ -25,56 +25,29 @@ export const Content = styled.div`
     width: 340px;
     text-align: center;
 
-    input {
-      background: #f7f7f7;
-      border-radius: 6px;
-      border: 2px solid #f7f7f7;
-      padding: 12px;
-      width: 100%;
+    .forgotPassword {
+      color: #00a3ff;
+      text-decoration: none;
+      margin-top: 14px;
+      margin-left: 200px;
+      font-size: 14px;
+      transition: color 0.2s;
 
-      & + input {
-        margin-top: 18px;
-
-        & + a {
-          color: #00a3ff;
-          text-decoration: none;
-          margin-top: 14px;
-          margin-left: 200px;
-          font-size: 14px;
-          transition: color 0.2s;
-
-          &:hover {
-            color: ${shade(0.1, '#00a3ff')};
-          }
-        }
+      &:hover {
+        color: ${shade(0.1, '#00a3ff')};
       }
     }
 
-    button {
-      margin-top: 18px;
-      background: #00a3ff;
-      border-radius: 4px;
-      border: 0;
-      padding: 10px;
-      color: #fff;
-      width: 100%;
-      transition: background-color 0.2s;
+    a {
+      text-decoration: none;
+      margin-top: 24px;
+      font-size: 14px;
+      transition: color 0.2s;
+      color: #000;
+      transition: 0.2s;
 
       &:hover {
-        background: ${shade(0.05, '#00a3ff')};
-      }
-
-      & + a {
-        text-decoration: none;
-        margin-top: 24px;
-        font-size: 14px;
-        transition: color 0.2s;
-        color: #000;
-        transition: 0.2s;
-
-        &:hover {
-          color: ${shade(0.2, '#00a3ff')};
-        }
+        color: ${shade(0.2, '#00a3ff')};
       }
     }
   }
