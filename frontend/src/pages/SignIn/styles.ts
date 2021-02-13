@@ -79,12 +79,35 @@ export const Logo = styled.div`
   display: flex;
   flex-direction: row;
 
-  > img {
-    width: 75px;
+  @media (min-width: 1280px) {
+    > img {
+      width: 75px;
+    }
+
+    > .lettering {
+      width: 160px;
+      margin-left: -10px;
+    }
   }
 
-  > .lettering {
-    width: 160px;
-    margin-left: -10px;
+  @media (max-width: 1279px) {
+    > img {
+      width: 70px;
+    }
+
+    > .lettering {
+      width: 150px;
+      margin-left: -10px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    > img {
+      width: 150px;
+    }
+
+    > .lettering {
+      display: none;
+    }
   }
 `;
