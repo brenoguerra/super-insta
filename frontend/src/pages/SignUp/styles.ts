@@ -34,19 +34,6 @@ export const Content = styled.div`
 
       & + input {
         margin-top: 18px;
-
-        & + a {
-          color: #00a3ff;
-          text-decoration: none;
-          margin-top: 14px;
-          margin-left: 200px;
-          font-size: 14px;
-          transition: color 0.2s;
-
-          &:hover {
-            color: ${shade(0.1, '#00a3ff')};
-          }
-        }
       }
     }
 
