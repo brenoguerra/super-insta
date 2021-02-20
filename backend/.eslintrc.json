@@ -20,7 +20,14 @@
   ],
   "rules": {
     "prettier/prettier": "error",
-    "camelcase": "off"
+    "camelcase": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
