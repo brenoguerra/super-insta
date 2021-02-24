@@ -3,7 +3,7 @@ import api from '../services/api';
 
 interface AuthState {
   token: string;
-  user: void;
+  user: any;
 }
 
 interface SignInCredentials {
@@ -12,7 +12,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: void;
+  user: any;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }

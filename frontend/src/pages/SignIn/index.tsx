@@ -2,8 +2,9 @@ import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { Link, useHistory } from 'react-router-dom';
 
-import { useAuth } from '../../hooks/AuthContext';
+import { useAuth } from '../../hooks/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
@@ -22,6 +23,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const { signIn } = useAuth();
 
@@ -43,13 +45,19 @@ const SignIn: React.FC = () => {
           username: data.username,
           password: data.password,
         });
-      } catch (error) {
-        const errors = getValidationErrors(error);
 
-        formRef.current?.setErrors(errors);
+        history.push('/');
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(error);
+
+          formRef.current?.setErrors(errors);
+        }
+
+        // exibir erro (popup)
       }
     },
-    [signIn]
+    [signIn, history]
   );
 
   return (
@@ -63,13 +71,13 @@ const SignIn: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <Input name="username" placeholder="Nome de usuário" />
           <Input name="password" type="password" placeholder="Senha" />
-          <a className="forgotPassword" href="forgot">
+          <Link className="forgotPassword" to="forgot">
             Esqueci minha senha
-          </a>
+          </Link>
 
           <Button type="submit">Entrar</Button>
 
-          <a href="signup">Criar uma conta</a>
+          <Link to="signup">Criar uma conta</Link>
         </Form>
       </Content>
     </Container>
