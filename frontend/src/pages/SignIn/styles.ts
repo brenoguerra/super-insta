@@ -64,7 +64,7 @@ export const Logo = styled.div`
 
     > .lettering {
       width: 180px;
-      margin-left: -10px;
+      margin-left: -50px;
     }
   }
 

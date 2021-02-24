@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import AuthContext from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
@@ -15,31 +15,42 @@ import Input from '../../components/Input';
 
 import { Container, Content, Logo } from './styles';
 
+interface SignInFormData {
+  username: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const auth = useContext(AuthContext);
+  const { signIn } = useAuth();
 
-  console.log(auth);
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-  const handleSubmit = useCallback(async (data: void) => {
-    try {
-      formRef.current?.setErrors({});
+        const schema = Yup.object().shape({
+          username: Yup.string().required('Preencha o nome de usuário'),
+          password: Yup.string().required('Preencha a senha'),
+        });
 
-      const schema = Yup.object().shape({
-        username: Yup.string().required('Preencha o nome de usuário'),
-        password: Yup.string().required('Preencha a senha'),
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (error) {
-      const errors = getValidationErrors(error);
+        signIn({
+          username: data.username,
+          password: data.password,
+        });
+      } catch (error) {
+        const errors = getValidationErrors(error);
 
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        formRef.current?.setErrors(errors);
+      }
+    },
+    [signIn]
+  );
 
   return (
     <Container>
