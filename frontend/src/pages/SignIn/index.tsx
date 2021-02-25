@@ -54,7 +54,10 @@ const SignIn: React.FC = () => {
           formRef.current?.setErrors(errors);
         }
 
-        // exibir erro (popup)
+        formRef.current?.setErrors({
+          username: '   ',
+          password: 'Credenciais inválidas',
+        });
       }
     },
     [signIn, history]

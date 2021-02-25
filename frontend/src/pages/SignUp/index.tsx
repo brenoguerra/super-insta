@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -13,6 +13,7 @@ import letteringImg from '../../assets/lettering.svg';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import Modal from '../../components/Modal';
 
 import { Container, Content, Logo } from './styles';
 
@@ -26,40 +27,48 @@ interface SignUpFormData {
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleSubmit = useCallback(
-    async (data: SignUpFormData) => {
-      try {
-        formRef.current?.setErrors({});
+  const handleSubmit = useCallback(async (data: SignUpFormData) => {
+    try {
+      formRef.current?.setErrors({});
 
-        const schema = Yup.object().shape({
-          name: Yup.string().required('Preencha o nome'),
-          email: Yup.string()
-            .email('Use um e-mail válido')
-            .required('Preencha o email'),
-          username: Yup.string().required('Preencha o nome de usuário'),
-          password: Yup.string().required('Preencha a senha'),
-        });
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Preencha o nome'),
+        email: Yup.string()
+          .email('Use um e-mail válido')
+          .required('Preencha o email'),
+        username: Yup.string().required('Preencha o nome de usuário'),
+        password: Yup.string().required('Preencha a senha'),
+      });
 
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
-        history.push('/');
+      await api.post('/users', data);
+      // history.push('/');
+      setIsModalVisible(true);
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(error);
 
-        await api.post('/users', data);
-      } catch (error) {
-        if (error instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(error);
-
-          formRef.current?.setErrors(errors);
-        }
-
-        // exibir erro (popup)
+        return formRef.current?.setErrors(errors);
       }
-    },
-    [history]
-  );
+
+      if (error.response.data.error.includes('Email')) {
+        return formRef.current?.setErrors({
+          email: 'E-mail em uso',
+        });
+      }
+
+      if (error.response.data.error.includes('Username')) {
+        return formRef.current?.setErrors({
+          username: 'Nome de usuário em uso',
+        });
+      }
+    }
+  }, []);
 
   return (
     <Container>
@@ -79,6 +88,12 @@ const SignUp: React.FC = () => {
 
           <Link to="/signin">Já sou cadastrado</Link>
         </Form>
+
+        {isModalVisible && (
+          <Modal onClose={() => setIsModalVisible(false)}>
+            Sucesso no cadastro!
+          </Modal>
+        )}
       </Content>
     </Container>
   );
