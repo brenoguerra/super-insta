@@ -1,5 +1,12 @@
 import React from 'react';
 
-const Home: React.FC = () => <h1>Home</h1>;
+import Sidebar from '../../components/Sidebar';
+
+const Home: React.FC = () => (
+  <>
+    <Sidebar />
+    <h1>olá mundo</h1>
+  </>
+);
 
 export default Home;

@@ -5,16 +5,23 @@ import GlobalStyle from './styles/global';
 
 import { AuthProvider } from './hooks/auth';
 
+import Home from './pages/Home';
+
 import Routes from './routes';
 
 const App: React.FC = () => (
-  <BrowserRouter>
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+  // <BrowserRouter>
+  //   <AuthProvider>
+  //     <Routes />
+  //   </AuthProvider>
 
+  //   <GlobalStyle />
+  // </BrowserRouter>
+
+  <>
+    <Home />
     <GlobalStyle />
-  </BrowserRouter>
+  </>
 );
 
 export default App;

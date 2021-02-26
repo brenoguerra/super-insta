@@ -10,6 +10,7 @@ export const Container = styled.button`
   color: #fff;
   width: 100%;
   transition: background-color 0.2s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
   &:hover {
     background: ${shade(0.05, '#00a3ff')};
