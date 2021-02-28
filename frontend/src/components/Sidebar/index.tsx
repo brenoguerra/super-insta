@@ -16,6 +16,7 @@ import {
   Following,
   BarContent,
   BarItem,
+  BarText,
 } from './styles';
 
 const profilePicture =
@@ -63,13 +64,16 @@ const Sidebar: React.FC = () => (
 
     <BarContent>
       <BarItem>
-        <p>{<AiOutlineHome size={20} />} Feed</p>
+        <BarText>
+          <AiOutlineHome size={20} />
+          <p>Feed</p>
+        </BarText>
       </BarItem>
       <BarItem>
-        <p>
+        <BarText>
           <AiOutlineCompass size={20} />
-          Explore
-        </p>
+          <p>Explore</p>
+        </BarText>
       </BarItem>
     </BarContent>
   </Container>
