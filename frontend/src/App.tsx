@@ -5,7 +5,7 @@ import GlobalStyle from './styles/global';
 
 import { AuthProvider } from './hooks/auth';
 
-import Home from './pages/Home';
+import Feed from './pages/Feed';
 
 import Routes from './routes';
 
@@ -19,7 +19,7 @@ const App: React.FC = () => (
   // </BrowserRouter>
 
   <>
-    <Home />
+    <Feed />
     <GlobalStyle />
   </>
 );
